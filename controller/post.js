@@ -29,4 +29,35 @@ router.post('/create', async (req, res) => {
     }
 });
 
+
+router.post('/update', async (req, res) => {
+    try{
+        const updatePost = req.body
+        console.log(req.body)
+
+        const post = await Posts.findByIdAndUpdate(updatePost._id, updatePost)
+
+        res.send({post})
+    }
+    catch(err){
+        res.send({ error : err})
+    }
+});
+
+router.post('/delete', async (req, res) => {
+    try{
+        const removePost = req.body
+        console.log(req.body)
+
+        await Posts.findByIdAndRemove(removePost._id);
+
+        const posts = await Posts.find();
+
+        res.send({posts})
+    }
+    catch(err){
+        res.send({ error : err})
+    }
+});
+
 module.exports = router;
