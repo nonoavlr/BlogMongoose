@@ -12,14 +12,10 @@ const PostSchema = new Schema({
     title : { type : String, required : true, maxlength : '30' },
     author : { type : String, required : true, maxlength : '30' },
     body : { type : String, required : true },
-    tags : [{type : String}],
+    tags : [{type : String, lowercase : true }],
     created : { type : Date, default : Date.now, required : true },
     edited : { type : Date, default : Date.now, required : true },
     comments : [CommentSchema]
 });
 
-const BlogSchema = new Schema({
-    post : [PostSchema]
-});
-
-module.exports = mongoose.model('Blog', BlogSchema);
+module.exports = mongoose.model('Posts', PostSchema);
